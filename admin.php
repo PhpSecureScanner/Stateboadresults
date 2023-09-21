@@ -12,7 +12,7 @@
     <style>
         .disp{
             text-align: center;
-            margin: 10%;
+            margin: 3%;
             padding:5%;
             
             border: 2px;

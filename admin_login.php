@@ -18,6 +18,9 @@
             border: 2px;
             border-style: solid;
         }
+        .error{
+            color: red;
+        }
     </style>
     
 </head>
@@ -27,15 +30,50 @@
 
     <div class="disp">
 
-        <form action="admin.php">
+        <form action="#" method="GET">
             <label for="uname">Username : </label>
-            <input type="text" id="uname" required>
+            <input type="text" name="uname" id="uname" required>
             <br><br>
             <label for="pass">Password  :  </label>
-            <input type="password" id="pass" required>
+            <input type="password" name="pass" id="pass" required>
             <br>
+
+            <?php
+
+                if(isset($_GET['submit'])){
+                    if($_SERVER['REQUEST_METHOD']==='GET'){
+
+                        session_start();
+                        $_SESSION['name'] = $_GET['uname'];
+                        $_SESSION['pass'] = $_GET['pass'];
+                        $name = $_SESSION['name'];
+                        $pass = $_SESSION['pass'];
+
+                        //connecting
+                        $con = mysqli_connect("localhost","root","","results");
+
+                        
+                        //checking admin uname and password in the database
+                        $sql = mysqli_query($con,"select * from admin where Uname='$name' AND Password='$pass'");
+                        $row = mysqli_fetch_assoc($sql);
+
+                        if(!$row){
+                            echo"<p class='error'>Please re-verify your username or password!!</p>";
+                        }
+
+                        else{
+                            header("Location:admin.php");
+                        }
+                        
+                        session_destroy();
+                        mysqli_close($con);
+
+                    }
+                }
+
+            ?>
             <br>
-            <input type="Submit" value="Login"/>
+            <input type="submit" name="submit" value="Login"/>
         </form>
 
     </div>
