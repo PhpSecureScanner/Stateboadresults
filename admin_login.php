@@ -31,6 +31,7 @@
     <div class="disp">
 
         <form action="#" method="GET">
+            <h3>Hey Admin !!</h3>
             <label for="uname">Username : </label>
             <input type="text" name="uname" id="uname" required>
             <br><br>
@@ -55,9 +56,8 @@
                         
                         //checking admin uname and password in the database
                         $sql = mysqli_query($con,"select * from admin where Uname='$name' AND Password='$pass'");
-                        $row = mysqli_fetch_assoc($sql);
 
-                        if(!$row){
+                        if(!$sql){
                             echo"<p class='error'>Please re-verify your username or password!!</p>";
                         }
 
