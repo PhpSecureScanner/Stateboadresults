@@ -18,35 +18,48 @@
             border: 2px;
             border-style: solid;
         }
+        .del{
+            color: red;
+        }
     </style>
     
 </head>
-
 
 <body>
 
     <div class="disp">
 
-    <h4>Shall I delete the old marks?</h4>
-    <h4>If yes, click below!!</h4>
+        <h4>Shall I delete the old marks?</h4>
+        <h4>If yes, click below!!</h4>
 
-    <form action="#" method="put">
-        <input type="submit" name="Delete"/>
-    </form>
+        <form action="" method="POST">
+            <input type="submit" name="submit" id="submit" value="Delete">
+        </form>
 
+        <?php
 
-    <?php
-        if(isset($_POST['submit'])){
-            if($_SERVER['REQUEST_METHOD']==='POST'){
+            if(isset($_POST['submit'])){
+                if($_SERVER['REQUEST_METHOD']==='POST'){
 
-                $con = mysqli_connect("localhost","root","","students");
-                $del = mysqli_query($con,"delete *");
+                    session_start();
 
+                    $con = mysqli_connect("localhost","root","","results");
+                    $del = mysqli_query($con,"select * from students where userid>'0' and userid<'100'");
+
+                    //$status =mysqli_fetch_assoc($del); 
+                    if(!$del){
+                        echo"<p class='del'>No data to delete!!</p>";
+                    }
+                    else{
+                        $del = mysqli_query($con,"delete from students where userid>'0' and userid<'100'");
+                        echo"<p class='del'>Deleted!!</p>";
+                    }
+
+                    mysqli_close($con);
+                    session_destroy();
+                }
             }
-        }
-        //delete from one end to another
-    ?>
-
+        ?>
     </div>
 
     <!--copyright footer-->
