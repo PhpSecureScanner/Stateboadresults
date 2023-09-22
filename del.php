@@ -1,3 +1,30 @@
+<?php
+
+    session_start();
+    $_SESSION['uname']=$_COOKIE['id'];
+    $_SESSION['pass']=$_COOKIE['pass'];
+
+    $uname = $_SESSION['uname'];
+    $pass = $_SESSION['pass'];
+
+    //connecting
+    $con = mysqli_connect("localhost","root","","results");
+                    
+    //checking admin uname and password in the database
+    $sql = mysqli_query($con,"select * from admin where Uname='$uname' AND Password='$pass'");
+
+    $sta = mysqli_fetch_assoc($sql);
+    if(!$sta){
+        header("Location:admin_login.php");
+    }
+
+    else{
+    }
+                        
+    session_destroy();
+    mysqli_close($con);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

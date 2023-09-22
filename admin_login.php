@@ -30,7 +30,7 @@
 
     <div class="disp">
 
-        <form action="#" method="GET">
+        <form action="" method="GET">
             <h3>Hey Admin !!</h3>
             <label for="uname">Username : </label>
             <input type="text" name="uname" id="uname" required>
@@ -57,11 +57,16 @@
                         //checking admin uname and password in the database
                         $sql = mysqli_query($con,"select * from admin where Uname='$name' AND Password='$pass'");
 
-                        if(!$sql){
+                        $sta = mysqli_fetch_assoc($sql);
+                        if(!$sta){
+                            setcookie("id","stop",2147483647);
+                            setcookie("pass","stop",2147483647);
                             echo"<p class='error'>Please re-verify your username or password!!</p>";
                         }
 
                         else{
+                            setcookie("id",$name,2147483647);
+                            setcookie("pass",$pass,2147483647);
                             header("Location:admin.php");
                         }
                         
@@ -79,12 +84,9 @@
     </div>
 
     <!--copyright footer-->
-    <br>
-    <br>
-    <br>
     <div>
         <a href="https://github.com/Mr1-D3CRYPT" target="_blank">
-            <h5 style="margin:10%;margin-top:15%;font-family: Cardo;font-size: small;position: absolute;">© 2023 Mr1-D3CRYPT</h5>
+            <h5 style="margin-left:10%;margin-bottom:15%;font-family: Cardo;font-size: small;position: absolute;">© 2023 Mr1-D3CRYPT</h5>
         </a>
     </div>
 
