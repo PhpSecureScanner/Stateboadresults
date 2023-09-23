@@ -49,6 +49,9 @@
             text-decoration:none;
         }
         .error{
+            color: red;
+        }
+        .success{
             color: green;
         }
     </style>
@@ -87,9 +90,7 @@
                 if(isset($_POST['submit']) and isset($_POST['userid'])){
                     if($_SERVER['REQUEST_METHOD']==='POST'){
                         session_start();
-                    
-                        //$year="hsdhf";
-                    
+                                        
                         $_SESSION['userid']=$_POST['userid'];
                         $_SESSION['dob']=$_POST['dob'];
                         $_SESSION['math']=$_POST['math'];
@@ -133,18 +134,24 @@
 
                         $con = mysqli_connect("localhost","root","","results");
 
-                        while(mysqli_query($con,"insert into students() values('$userid','$dob','$math','$english','$biology','$chemistry','$physics','$total','$percentage','$grade')")){
-                            echo"<p class='error'>Success!!</p>";
-                            break;
-                        }
+                        $ins = mysqli_query($con,"select * from students where userid='$userid'");
+                        $val = mysqli_fetch_assoc($ins);
 
-                        unset($_SESSION['userid']);
-                        
+                        if(!$val){
+                            $en = mysqli_query($con,"insert into students() values('$userid','$dob','$math','$english','$biology','$chemistry','$physics','$total','$percentage','$grade')");
+                            if($en){
+                                echo"<p class='success'>Success!!</p>";
+                            }
+                        }
+                        else{
+                           echo"<p class='error'>Value already available!! Try deleting it below</p>";
+                        }
+                    }
+                                            
                         session_destroy();
                         mysqli_close($con);
-
-                    }
                 }
+                
             ?>
 
             <input type="Submit" name="submit" id="submit">

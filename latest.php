@@ -120,7 +120,7 @@
 
                         echo"<tr>";
                         echo"<td>Percentage</td>";
-                        echo"<td>$val[6].00%</td>";
+                        echo"<td>";echo number_format($val[6],2);echo"%</td>";
                         echo"</tr>";
 
                         echo"<tr>";
