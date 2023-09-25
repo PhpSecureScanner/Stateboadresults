@@ -47,7 +47,7 @@
     <h4 style="color:red;">Welcome to this page!! Enter the details to view the results of VHSE 2023!!</h4>
         <form action="" method="GET">
             <label for="regno">Resgistration Number : </label>
-            <input type="number" id="regno" name="regno" required>
+            <input type="number" id="regno" name="regno" min="101" required>
             <br><br>
             <label for="dob">Date of birth : </label>
             <input type="Date" name="dob" id="dob" required>
